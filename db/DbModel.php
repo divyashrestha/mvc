@@ -1,8 +1,9 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/10/2020
- * Time: 9:19 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\db;
@@ -13,7 +14,7 @@ use divyashrestha\mvc\Model;
 /**
  * Class DbModel
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
 abstract class DbModel extends Model

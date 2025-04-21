@@ -1,19 +1,19 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/25/2020
- * Time: 11:35 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\exception;
-
 
 use divyashrestha\mvc\Application;
 
 /**
  * Class ForbiddenException
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc\exception
  */
 class ForbiddenException extends \Exception

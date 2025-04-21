@@ -1,8 +1,9 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/9/2020
- * Time: 7:05 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\form;
@@ -13,7 +14,7 @@ use divyashrestha\mvc\Model;
 /**
  * Class Form
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package core\form
  */
 class Form

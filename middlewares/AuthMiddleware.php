@@ -1,8 +1,9 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/25/2020
- * Time: 11:33 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\middlewares;
@@ -14,7 +15,7 @@ use divyashrestha\mvc\exception\ForbiddenException;
 /**
  * Class AuthMiddleware
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
 class AuthMiddleware extends BaseMiddleware

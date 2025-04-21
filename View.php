@@ -1,17 +1,17 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/26/2020
- * Time: 2:45 PM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc;
 
-
 /**
  * Class View
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
 class View

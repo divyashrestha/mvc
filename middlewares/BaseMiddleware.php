@@ -1,8 +1,9 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/25/2020
- * Time: 11:33 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\middlewares;
@@ -11,7 +12,7 @@ namespace divyashrestha\mvc\middlewares;
 /**
  * Class BaseMiddleware
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
 abstract class BaseMiddleware

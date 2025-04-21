@@ -1,17 +1,18 @@
 <?php
-/**
- * User: TheCodeholic
- * Date: 7/8/2020
- * Time: 8:43 AM
- */
 
+/**
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
+ */
 namespace divyashrestha\mvc;
 
 use divyashrestha\mvc\middlewares\BaseMiddleware;
+
 /**
  * Class Controller
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
 class Controller

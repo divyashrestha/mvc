@@ -1,19 +1,19 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/26/2020
- * Time: 3:49 PM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc\form;
-
 
 use divyashrestha\mvc\Model;
 
 /**
  * Class BaseField
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc\form
  */
 abstract class BaseField

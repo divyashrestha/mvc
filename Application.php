@@ -1,8 +1,9 @@
 <?php
+
 /**
- * User: TheCodeholic
- * Date: 7/7/2020
- * Time: 9:57 AM
+ * User: Divya Shrestha <work@divyashrestha.com.np>
+ * Date: 21/04/2025
+ * Time: 21:17
  */
 
 namespace divyashrestha\mvc;
@@ -12,7 +13,7 @@ use divyashrestha\mvc\db\Database;
 /**
  * Class Application
  *
- * @author  Zura Sekhniashvili <zurasekhniashvili@gmail.com>
+ * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package app
  */
 class Application
