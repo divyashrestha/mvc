@@ -1,6 +1,6 @@
 <?php
 
-namespace divyashrestha\mvc\db;
+namespace divyashrestha\Mvc\db;
 
 abstract class BaseMigration
 {
