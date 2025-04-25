@@ -43,8 +43,7 @@ class Application
     {
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
-        $this->loadDirectory('app/helpers');
-        $this->loadDirectory('migrations');
+        $this->loadAppDirectory();
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
@@ -52,6 +51,14 @@ class Application
         $this->app_config = $config['app'];
         $this->session = new Session();
         $this->view = new View();
+    }
+    private function loadAppDirectory(): void
+    {
+        $folders=['controllers','form','helpers','middlewares', 'models'];
+        $this->loadDirectory('migrations');
+        foreach($folders as $folder) {
+            $this->loadDirectory("app/$folder");
+        }
     }
 
     public function run(): void
@@ -70,7 +77,6 @@ class Application
 
     private function displayErrorPage($error, string $view, array $params): void
     {
-//        log_message($error->getMessage());
         console_log($error->getMessage());
         echo $this->router->renderView($view, $params);
     }
@@ -101,7 +107,7 @@ class Application
     {
         $folderPath= self::$ROOT_DIR ."/$directory";
         if (!is_dir($folderPath)) {
-            die("Invalid folder path: $folderPath");
+            exit;
         }
 
         $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($folderPath));
