@@ -1,6 +1,7 @@
 {
     "name": "divyashrestha/mvc",
     "description": "A simple php framework",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "divyashrestha\\Mvc\\": "src/"
