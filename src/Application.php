@@ -52,15 +52,15 @@ class Application
         $this->session = new Session();
         $this->view = new View();
     }
+    
     private function loadAppDirectory(): void
     {
-        $folders=['controllers','form','helpers','middlewares', 'models'];
+        $folders=['controllers','helpers','middlewares'];
         $this->loadDirectory('migrations');
         foreach($folders as $folder) {
             $this->loadDirectory("app/$folder");
         }
     }
-
     public function run(): void
     {
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
