@@ -8,8 +8,8 @@
 
 namespace divyashrestha\Mvc\form;
 
-use divyashrestha\Mvc\db\DbModel;
-use divyashrestha\Mvc\Model;
+use divyashrestha\Mvc\db\BaseModel;
+use divyashrestha\Mvc\db\Model;
 
 /**
  * Class BaseField
@@ -35,10 +35,10 @@ abstract class BaseField
     /**
      * Field constructor.
      *
-     * @param DbModel $model
+     * @param BaseModel $model
      * @param string $attribute
      */
-    public function __construct(DbModel $model, string $attribute, $required, array $optional_attributes)
+    public function __construct(BaseModel $model, string $attribute, $required, array $optional_attributes)
     {
         $this->model = $model;
         $this->attribute = $attribute;

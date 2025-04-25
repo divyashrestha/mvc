@@ -9,15 +9,14 @@
 namespace divyashrestha\Mvc\db;
 
 use divyashrestha\Mvc\Application;
-use divyashrestha\Mvc\Model;
 
 /**
- * Class DbModel
+ * Class BaseModel
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
-abstract class DbModel extends Model
+abstract class BaseModel extends Model
 {
     abstract public static function tableName(): string;
 

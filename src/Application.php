@@ -9,6 +9,8 @@
 namespace divyashrestha\Mvc;
 
 use divyashrestha\Mvc\db\Database;
+use divyashrestha\Mvc\exception\ForbiddenException;
+use divyashrestha\Mvc\exception\NotFoundException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 
@@ -36,11 +38,9 @@ class Application
     public array $app_config;
     public Session $session;
     public View $view;
-    public ?UserModel $user;
 
     public function __construct($rootDir, $config)
     {
-        $this->user = null;
         self::$ROOT_DIR = $rootDir;
         self::$app = $this;
         $this->loadDirectory('app/helpers');
@@ -59,11 +59,20 @@ class Application
         $this->triggerEvent(self::EVENT_BEFORE_REQUEST);
         try {
             echo $this->router->resolve();
+        } catch (NotFoundException $e) {
+            $this->displayErrorPage($e, 'errors/not_found', ['exception' => $e,]);
+        } catch (ForbiddenException $e) {
+            $this->displayErrorPage($e, 'errors/forbidden', ['exception' => $e,]);
         } catch (\Exception $e) {
-            echo $this->router->renderView('_error', [
-                'exception' => $e,
-            ]);
+            $this->displayErrorPage($e, 'errors/index', ['exception' => $e,]);
         }
+    }
+
+    private function displayErrorPage($error, string $view, array $params): void
+    {
+//        log_message($error->getMessage());
+        console_log($error->getMessage());
+        echo $this->router->renderView($view, $params);
     }
 
     public function triggerEvent($eventName): void

@@ -6,7 +6,9 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\Mvc;
+namespace divyashrestha\Mvc\db;
+
+use divyashrestha\Mvc\Application;
 
 /**
  * Class Model

@@ -8,7 +8,7 @@
 
 namespace divyashrestha\Mvc\form;
 
-use divyashrestha\Mvc\db\DbModel;
+use divyashrestha\Mvc\db\BaseModel;
 
 /**
  * Class BaseForm
