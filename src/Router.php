@@ -6,9 +6,9 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc;
 
-use divyashrestha\mvc\exception\NotFoundException;
+use divyashrestha\Mvc\exception\NotFoundException;
 
 /**
  * Class Router
@@ -28,7 +28,7 @@ class Router
         $this->response = $response;
     }
 
-    public function get(string $url, $callback)
+    public function get(string $url, $callback): void
     {
         $this->routeMap['get'][$url] = $callback;
     }
@@ -38,9 +38,6 @@ class Router
         $this->routeMap['post'][$url] = $callback;
     }
 
-    /**
-     * @return array
-     */
     public function getRouteMap($method): array
     {
         return $this->routeMap[$method] ?? [];
@@ -58,7 +55,7 @@ class Router
 
         $routeParams = false;
 
-        // Start iterating registed routes
+        // Start iterating register routes
         foreach ($routes as $route => $callback) {
             // Trim slashes
             $route = trim($route, '/');
@@ -92,6 +89,9 @@ class Router
         return false;
     }
 
+    /**
+     * @throws NotFoundException
+     */
     public function resolve()
     {
         $method = $this->request->getMethod();
@@ -110,10 +110,11 @@ class Router
         }
         if (is_array($callback)) {
             /**
-             * @var $controller \divyashrestha\mvc\Controller
+             * @var $controller Controller
              */
             $controller = new $callback[0];
             $controller->action = $callback[1];
+
             Application::$app->controller = $controller;
             $middlewares = $controller->getMiddlewares();
             foreach ($middlewares as $middleware) {
@@ -124,12 +125,12 @@ class Router
         return call_user_func($callback, $this->request, $this->response);
     }
 
-    public function renderView($view, $params = [])
+    public function renderView($view, $params = []): array|false|string
     {
         return Application::$app->view->renderView($view, $params);
     }
 
-    public function renderViewOnly($view, $params = [])
+    public function renderViewOnly($view, $params = []): false|string
     {
         return Application::$app->view->renderViewOnly($view, $params);
     }

@@ -6,17 +6,16 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc\middlewares;
 
-use divyashrestha\mvc\db\DbModel;
 
 /**
- * Class UserModel
+ * Class BaseMiddleware
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
  * @package divyashrestha\mvc
  */
-abstract class UserModel extends DbModel
+abstract class BaseMiddleware
 {
-    abstract public function getDisplayName(): string;
+    abstract public function execute();
 }

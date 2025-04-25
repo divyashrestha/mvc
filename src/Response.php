@@ -6,7 +6,7 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc;
 
 /**
  * Class Response

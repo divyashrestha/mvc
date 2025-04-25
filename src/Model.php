@@ -6,7 +6,7 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc;
 
 /**
  * Class Model
@@ -16,12 +16,14 @@ namespace divyashrestha\mvc;
  */
 class Model
 {
-    const RULE_REQUIRED = 'required';
-    const RULE_EMAIL = 'email';
-    const RULE_MIN = 'min';
-    const RULE_MAX = 'max';
-    const RULE_MATCH = 'match';
-    const RULE_UNIQUE = 'unique';
+    const string RULE_REQUIRED = 'required';
+    const string RULE_EMAIL = 'email';
+    const string RULE_MIN = 'min';
+    const string RULE_MAX = 'max';
+    const string RULE_MATCH = 'match';
+    const string RULE_UNIQUE = 'unique';
+    public string $created_at = '';
+    public string $updated_at = '';
 
     public array $errors = [];
 
@@ -34,12 +36,12 @@ class Model
         }
     }
 
-    public function attributes()
+    public function attributes(): array
     {
         return [];
     }
 
-    public function labels()
+    public function labels(): array
     {
         return [];
     }
@@ -49,12 +51,12 @@ class Model
         return $this->labels()[$attribute] ?? $attribute;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
 
-    public function validate()
+    public function validate(): bool
     {
         foreach ($this->rules() as $attribute => $rules) {
             $value = $this->{$attribute};
@@ -96,7 +98,7 @@ class Model
         return empty($this->errors);
     }
 
-    public function errorMessages()
+    public function errorMessages(): array
     {
         return [
             self::RULE_REQUIRED => 'This field is required',
@@ -108,12 +110,12 @@ class Model
         ];
     }
 
-    public function errorMessage($rule)
+    public function errorMessage($rule): string
     {
         return $this->errorMessages()[$rule];
     }
 
-    protected function addErrorByRule(string $attribute, string $rule, $params = [])
+    protected function addErrorByRule(string $attribute, string $rule, $params = []): void
     {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
@@ -123,7 +125,7 @@ class Model
         $this->errors[$attribute][] = $errorMessage;
     }
 
-    public function addError(string $attribute, string $message)
+    public function addError(string $attribute, string $message): void
     {
         $this->errors[$attribute][] = $message;
     }

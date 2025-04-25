@@ -6,10 +6,10 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc\db;
+namespace divyashrestha\Mvc\db;
 
-use divyashrestha\mvc\Application;
-use divyashrestha\mvc\Model;
+use divyashrestha\Mvc\Application;
+use divyashrestha\Mvc\Model;
 
 /**
  * Class DbModel

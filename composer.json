@@ -3,7 +3,7 @@
     "description": "A simple php framework",
     "autoload": {
         "psr-4": {
-            "Divya\\Mvc\\": "src/"
+            "divyashrestha\\Mvc\\": "src/"
         }
     },
     "authors": [

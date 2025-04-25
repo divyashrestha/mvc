@@ -6,9 +6,9 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc\db;
+namespace divyashrestha\Mvc\db;
 
-use divyashrestha\mvc\Application;
+use divyashrestha\Mvc\Application;
 
 /**
  * Class Database
@@ -30,7 +30,7 @@ class Database
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
-    public function applyMigrations()
+    public function applyMigrations(): void
     {
         $this->createMigrationsTable();
         $appliedMigrations = $this->getAppliedMigrations();
@@ -44,22 +44,22 @@ class Database
             }
 
             require_once Application::$ROOT_DIR . '/migrations/' . $migration;
-            $className = pathinfo($migration, PATHINFO_FILENAME);
+            $className = 'migrations\\' . pathinfo($migration, PATHINFO_FILENAME);
             $instance = new $className();
-            $this->log("Applying migration $migration");
+            log_message("Applying migration $migration");
             $instance->up();
-            $this->log("Applied migration $migration");
+            log_message("Applied migration $migration");
             $newMigrations[] = $migration;
         }
 
         if (!empty($newMigrations)) {
             $this->saveMigrations($newMigrations);
         } else {
-            $this->log("There are no migrations to apply");
+            log_message("There are no migrations to apply");
         }
     }
 
-    protected function createMigrationsTable()
+    protected function createMigrationsTable(): void
     {
         $this->pdo->exec("CREATE TABLE IF NOT EXISTS migrations (
             id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,7 +68,7 @@ class Database
         )  ENGINE=INNODB;");
     }
 
-    protected function getAppliedMigrations()
+    protected function getAppliedMigrations(): array
     {
         $statement = $this->pdo->prepare("SELECT migration FROM migrations");
         $statement->execute();
@@ -76,22 +76,15 @@ class Database
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
     }
 
-    protected function saveMigrations(array $newMigrations)
+    protected function saveMigrations(array $newMigrations): void
     {
         $str = implode(',', array_map(fn($m) => "('$m')", $newMigrations));
-        $statement = $this->pdo->prepare("INSERT INTO migrations (migration) VALUES 
-            $str
-        ");
+        $statement = $this->pdo->prepare("INSERT INTO migrations (migration) VALUES $str ");
         $statement->execute();
     }
 
     public function prepare($sql): \PDOStatement
     {
         return $this->pdo->prepare($sql);
-    }
-
-    private function log($message)
-    {
-        echo "[" . date("Y-m-d H:i:s") . "] - " . $message . PHP_EOL;
     }
 }

@@ -5,9 +5,9 @@
  * Date: 21/04/2025
  * Time: 21:17
  */
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc;
 
-use divyashrestha\mvc\middlewares\BaseMiddleware;
+use divyashrestha\Mvc\middlewares\BaseMiddleware;
 
 /**
  * Class Controller
@@ -19,10 +19,6 @@ class Controller
 {
     public string $layout = 'main';
     public string $action = '';
-
-    /**
-     * @var \divyashrestha\mvc\BaseMiddleware[]
-     */
     protected array $middlewares = [];
 
     public function setLayout($layout): void
@@ -35,14 +31,11 @@ class Controller
         return Application::$app->router->renderView($view, $params);
     }
 
-    public function registerMiddleware(BaseMiddleware $middleware)
+    public function registerMiddleware(BaseMiddleware $middleware): void
     {
         $this->middlewares[] = $middleware;
     }
 
-    /**
-     * @return \divyashrestha\mvc\middlewares\BaseMiddleware[]
-     */
     public function getMiddlewares(): array
     {
         return $this->middlewares;

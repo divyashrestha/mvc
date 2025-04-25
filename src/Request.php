@@ -6,7 +6,7 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc;
+namespace divyashrestha\Mvc;
 
 /**
  * Class Request
@@ -18,14 +18,14 @@ class Request
 {
     private array $routeParams = [];
 
-    public function getMethod()
+    public function getMethod(): string
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
     public function getUrl()
     {
-        $path = $_SERVER['REQUEST_URI'];
+        $path = $_SERVER['REQUEST_URI'] ?? '/';
         $position = strpos($path, '?');
         if ($position !== false) {
             $path = substr($path, 0, $position);
@@ -33,17 +33,17 @@ class Request
         return $path;
     }
 
-    public function isGet()
+    public function isGet(): bool
     {
         return $this->getMethod() === 'get';
     }
 
-    public function isPost()
+    public function isPost(): bool
     {
         return $this->getMethod() === 'post';
     }
 
-    public function getBody()
+    public function getBody(): array
     {
         $data = [];
         if ($this->isGet()) {
@@ -63,13 +63,13 @@ class Request
      * @param $params
      * @return self
      */
-    public function setRouteParams($params)
+    public function setRouteParams($params): static
     {
         $this->routeParams = $params;
         return $this;
     }
 
-    public function getRouteParams()
+    public function getRouteParams(): array
     {
         return $this->routeParams;
     }

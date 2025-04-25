@@ -6,7 +6,7 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc\exception;
+namespace divyashrestha\Mvc\exception;
 
 /**
  * Class NotFoundException

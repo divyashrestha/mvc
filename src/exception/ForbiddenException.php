@@ -6,9 +6,7 @@
  * Time: 21:17
  */
 
-namespace divyashrestha\mvc\exception;
-
-use divyashrestha\mvc\Application;
+namespace divyashrestha\Mvc\exception;
 
 /**
  * Class ForbiddenException
