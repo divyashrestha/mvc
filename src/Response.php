@@ -1,27 +1,29 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc;
 
 /**
  * Class Response
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Response
 {
-    public function statusCode(int $code)
+    /**
+     * @param int $code
+     * @return void
+     */
+    public function statusCode(int $code): void
     {
         http_response_code($code);
     }
 
-    public function redirect($url)
+    /**
+     * @param $url
+     * @return void
+     */
+    public function redirect($url): void
     {
         header("Location: $url");
     }

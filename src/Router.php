@@ -1,11 +1,5 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc;
 
 use divyashrestha\Mvc\exception\NotFoundException;
@@ -14,36 +8,66 @@ use divyashrestha\Mvc\exception\NotFoundException;
  * Class Router
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Router
 {
+    /**
+     * @var Request
+     */
     private Request $request;
+    /**
+     * @var Response
+     */
     private Response $response;
+    /**
+     * @var array
+     */
     private array $routeMap = [];
 
+    /**
+     * @param Request $request
+     * @param Response $response
+     */
     public function __construct(Request $request, Response $response)
     {
         $this->request = $request;
         $this->response = $response;
     }
 
+    /**
+     * @param string $url
+     * @param $callback
+     * @return void
+     */
     public function get(string $url, $callback): void
     {
         $this->routeMap['get'][$url] = $callback;
     }
 
-    public function post(string $url, $callback)
+    /**
+     * @param string $url
+     * @param $callback
+     * @return void
+     */
+    public function post(string $url, $callback): void
     {
         $this->routeMap['post'][$url] = $callback;
     }
 
+    /**
+     * @param $method
+     * @return array
+     */
     public function getRouteMap($method): array
     {
         return $this->routeMap[$method] ?? [];
     }
 
-    public function getCallback()
+    /**
+     * @return false|mixed
+     */
+    public function getCallback(): callable|false
     {
         $method = $this->request->getMethod();
         $url = $this->request->getUrl();
@@ -65,7 +89,7 @@ class Router
                 continue;
             }
 
-            // Find all route names from route and save in $routeNames
+            // Find all route names from the route and save in $routeNames
             if (preg_match_all('/\{(\w+)(:[^}]+)?}/', $route, $matches)) {
                 $routeNames = $matches[1];
             }
@@ -73,7 +97,7 @@ class Router
             // Convert route name into regex pattern
             $routeRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', fn($m) => isset($m[2]) ? "({$m[2]})" : '(\w+)', $route) . "$@";
 
-            // Test and match current route against $routeRegex
+            // Test and match the current route against $routeRegex
             if (preg_match_all($routeRegex, $url, $valueMatches)) {
                 $values = [];
                 for ($i = 1; $i < count($valueMatches); $i++) {
@@ -90,9 +114,10 @@ class Router
     }
 
     /**
+     * @return array|false|mixed|string
      * @throws NotFoundException
      */
-    public function resolve()
+    public function resolve(): mixed
     {
         $method = $this->request->getMethod();
         $url = $this->request->getUrl();
@@ -125,12 +150,22 @@ class Router
         return call_user_func($callback, $this->request, $this->response);
     }
 
-    public function renderView($view, $params = []): array|false|string
+    /**
+     * @param string $view
+     * @param array $params
+     * @return array|false|string
+     */
+    public function renderView(string $view, array $params = []): array|false|string
     {
         return Application::$app->view->renderView($view, $params);
     }
 
-    public function renderViewOnly($view, $params = []): false|string
+    /**
+     * @param string $view
+     * @param array $params
+     * @return false|string
+     */
+    public function renderViewOnly(string $view, array $params = []): false|string
     {
         return Application::$app->view->renderViewOnly($view, $params);
     }

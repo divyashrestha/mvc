@@ -1,35 +1,40 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\db;
 
 use divyashrestha\Mvc\Application;
+use PDO;
+use PDOStatement;
 
 /**
  * Class Database
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Database
 {
-    public \PDO $pdo;
+    /**
+     * @var PDO
+     */
+    public PDO $pdo;
 
-    public function __construct($dbConfig = [])
+    /**
+     * @param array $dbConfig
+     */
+    public function __construct(array $dbConfig = [])
     {
         $dbDsn = $dbConfig['dsn'] ?? '';
         $username = $dbConfig['user'] ?? '';
         $password = $dbConfig['password'] ?? '';
 
-        $this->pdo = new \PDO($dbDsn, $username, $password);
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo = new PDO($dbDsn, $username, $password);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
+    /**
+     * @return void
+     */
     public function applyMigrations(): void
     {
         $this->createMigrationsTable();
@@ -59,6 +64,9 @@ class Database
         }
     }
 
+    /**
+     * @return void
+     */
     protected function createMigrationsTable(): void
     {
         $this->pdo->exec("CREATE TABLE IF NOT EXISTS migrations (
@@ -68,14 +76,21 @@ class Database
         )  ENGINE=INNODB;");
     }
 
+    /**
+     * @return array
+     */
     protected function getAppliedMigrations(): array
     {
         $statement = $this->pdo->prepare("SELECT migration FROM migrations");
         $statement->execute();
 
-        return $statement->fetchAll(\PDO::FETCH_COLUMN);
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
     }
 
+    /**
+     * @param array $newMigrations
+     * @return void
+     */
     protected function saveMigrations(array $newMigrations): void
     {
         $str = implode(',', array_map(fn($m) => "('$m')", $newMigrations));
@@ -83,7 +98,11 @@ class Database
         $statement->execute();
     }
 
-    public function prepare($sql): \PDOStatement
+    /**
+     * @param string $sql
+     * @return PDOStatement
+     */
+    public function prepare(string $sql): PDOStatement
     {
         return $this->pdo->prepare($sql);
     }

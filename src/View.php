@@ -1,23 +1,25 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc;
 
 /**
  * Class View
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class View
 {
+    /**
+     * @var string
+     */
     public string $title = '';
 
+    /**
+     * @param $view
+     * @param array $params
+     * @return array|false|string
+     */
     public function renderView($view, array $params): array|false|string
     {
         $layoutName = Application::$app->layout;
@@ -31,7 +33,12 @@ class View
         return str_replace('{{content}}', $viewContent, $layoutContent);
     }
 
-    public function renderViewOnly($view, array $params): false|string
+    /**
+     * @param string $view
+     * @param array $params
+     * @return false|string
+     */
+    public function renderViewOnly(string $view, array $params): false|string
     {
         foreach ($params as $key => $value) {
             $$key = $value;
@@ -41,7 +48,13 @@ class View
         return ob_get_clean();
     }
 
-    public function load_partial($folder, $view, array $params = []): void
+    /**
+     * @param string $folder
+     * @param string $view
+     * @param array $params
+     * @return void
+     */
+    public function load_partial(string $folder, string $view, array $params = []): void
     {
         print_r($this->renderViewOnly("$folder/_$view", $params));
     }

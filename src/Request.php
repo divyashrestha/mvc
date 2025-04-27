@@ -1,29 +1,32 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc;
 
 /**
  * Class Request
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Request
 {
+    /**
+     * @var array
+     */
     private array $routeParams = [];
 
+    /**
+     * @return string
+     */
     public function getMethod(): string
     {
         return strtolower($_SERVER['REQUEST_METHOD']);
     }
 
-    public function getUrl()
+    /**
+     * @return string|null
+     */
+    public function getUrl(): null|string
     {
         $path = $_SERVER['REQUEST_URI'] ?? '/';
         $position = strpos($path, '?');
@@ -33,16 +36,25 @@ class Request
         return $path;
     }
 
+    /**
+     * @return bool
+     */
     public function isGet(): bool
     {
         return $this->getMethod() === 'get';
     }
 
+    /**
+     * @return bool
+     */
     public function isPost(): bool
     {
         return $this->getMethod() === 'post';
     }
 
+    /**
+     * @return array
+     */
     public function getBody(): array
     {
         $data = [];
@@ -60,21 +72,29 @@ class Request
     }
 
     /**
-     * @param $params
+     * @param array $params
      * @return self
      */
-    public function setRouteParams($params): static
+    public function setRouteParams(array $params): static
     {
         $this->routeParams = $params;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getRouteParams(): array
     {
         return $this->routeParams;
     }
 
-    public function getRouteParam($param, $default = null)
+    /**
+     * @param string $param
+     * @param string|null $default
+     * @return null|string
+     */
+    public function getRouteParam(string$param, null|string $default = null): null|string
     {
         return $this->routeParams[$param] ?? $default;
     }

@@ -1,21 +1,17 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\middlewares;
-
 
 /**
  * Class BaseMiddleware
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 abstract class BaseMiddleware
 {
-    abstract public function execute();
+    /**
+     * @return mixed
+     */
+    abstract public function execute(): mixed;
 }

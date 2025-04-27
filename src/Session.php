@@ -1,23 +1,19 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc;
 
 /**
  * Class Session
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Session
 {
-    protected const FLASH_KEY = 'flash_messages';
+    /** */
+    protected const string FLASH_KEY = 'flash_messages';
 
+    /** */
     public function __construct()
     {
         session_start();
@@ -28,7 +24,12 @@ class Session
         $_SESSION[self::FLASH_KEY] = $flashMessages;
     }
 
-    public function setFlash($key, $message)
+    /**
+     * @param string $key
+     * @param string $message
+     * @return void
+     */
+    public function setFlash(string $key, string $message): void
     {
         $_SESSION[self::FLASH_KEY][$key] = [
             'remove' => false,
@@ -36,32 +37,55 @@ class Session
         ];
     }
 
-    public function getFlash($key)
+    /**
+     * @param string $key
+     * @return false|mixed
+     */
+    public function getFlash(string $key): mixed
     {
         return $_SESSION[self::FLASH_KEY][$key]['value'] ?? false;
     }
 
-    public function set($key, $value)
+    /**
+     * @param string $key
+     * @param $value
+     * @return void
+     */
+    public function set(string $key, mixed $value): void
     {
         $_SESSION[$key] = $value;
     }
 
-    public function get($key)
+    /**
+     * @param string $key
+     * @return false|mixed
+     */
+    public function get(string $key)
     {
         return $_SESSION[$key] ?? false;
     }
 
-    public function remove($key)
+    /**
+     * @param string $key
+     * @return void
+     */
+    public function remove(string $key): void
     {
         unset($_SESSION[$key]);
     }
 
+    /**
+     *
+     */
     public function __destruct()
     {
         $this->removeFlashMessages();
     }
 
-    private function removeFlashMessages()
+    /**
+     * @return void
+     */
+    private function removeFlashMessages(): void
     {
         $flashMessages = $_SESSION[self::FLASH_KEY] ?? [];
         foreach ($flashMessages as $key => $flashMessage) {

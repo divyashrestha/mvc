@@ -1,31 +1,36 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\db;
 
 use divyashrestha\Mvc\Application;
+use PDOStatement;
+use stdClass;
 
 /**
  * Class BaseModel
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 abstract class BaseModel extends Model
 {
+    /**
+     * @return string
+     */
     abstract public static function tableName(): string;
 
+    /**
+     * @return string
+     */
     public static function primaryKey(): string
     {
         return 'id';
     }
 
-    public function save()
+    /**
+     * @return bool
+     */
+    public function save(): bool
     {
         $tableName = $this->tableName();
         $attributes = $this->attributes();
@@ -39,12 +44,20 @@ abstract class BaseModel extends Model
         return true;
     }
 
-    public static function prepare($sql): \PDOStatement
+    /**
+     * @param string $sql
+     * @return PDOStatement
+     */
+    public static function prepare(string $sql): PDOStatement
     {
         return Application::$app->db->prepare($sql);
     }
 
-    public static function findOne($where)
+    /**
+     * @param array $where
+     * @return mixed
+     */
+    public static function findOne(array $where): mixed
     {
         $tableName = static::tableName();
         $attributes = array_keys($where);

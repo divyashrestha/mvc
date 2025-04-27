@@ -1,11 +1,5 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\db;
 
 use divyashrestha\Mvc\Application;
@@ -14,22 +8,41 @@ use divyashrestha\Mvc\Application;
  * Class Model
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Model
 {
+    /** */
     const string RULE_REQUIRED = 'required';
+    /** */
     const string RULE_EMAIL = 'email';
+    /** */
     const string RULE_MIN = 'min';
+    /** */
     const string RULE_MAX = 'max';
+    /** */
     const string RULE_MATCH = 'match';
+    /** */
     const string RULE_UNIQUE = 'unique';
+    /**
+     * @var string
+     */
     public string $created_at = '';
+    /**
+     * @var string
+     */
     public string $updated_at = '';
 
+    /**
+     * @var array
+     */
     public array $errors = [];
 
-    public function loadData($data)
+    /**
+     * @param array $data
+     * @return void
+     */
+    public function loadData(array $data): void
     {
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
@@ -38,26 +51,42 @@ class Model
         }
     }
 
+    /**
+     * @return array
+     */
     public function attributes(): array
     {
         return [];
     }
 
+    /**
+     * @return array
+     */
     public function labels(): array
     {
         return [];
     }
 
-    public function getLabel($attribute)
+    /**
+     * @param string $attribute
+     * @return string
+     */
+    public function getLabel(string $attribute): string
     {
         return $this->labels()[$attribute] ?? $attribute;
     }
 
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return [];
     }
 
+    /**
+     * @return bool
+     */
     public function validate(): bool
     {
         foreach ($this->rules() as $attribute => $rules) {
@@ -100,6 +129,9 @@ class Model
         return empty($this->errors);
     }
 
+    /**
+     * @return string[]
+     */
     public function errorMessages(): array
     {
         return [
@@ -112,12 +144,22 @@ class Model
         ];
     }
 
-    public function errorMessage($rule): string
+    /**
+     * @param string $rule
+     * @return string
+     */
+    public function errorMessage(string $rule): string
     {
         return $this->errorMessages()[$rule];
     }
 
-    protected function addErrorByRule(string $attribute, string $rule, $params = []): void
+    /**
+     * @param string $attribute
+     * @param string $rule
+     * @param array $params
+     * @return void
+     */
+    protected function addErrorByRule(string $attribute, string $rule, array $params = []): void
     {
         $params['field'] ??= $attribute;
         $errorMessage = $this->errorMessage($rule);
@@ -127,17 +169,30 @@ class Model
         $this->errors[$attribute][] = $errorMessage;
     }
 
+    /**
+     * @param string $attribute
+     * @param string $message
+     * @return void
+     */
     public function addError(string $attribute, string $message): void
     {
         $this->errors[$attribute][] = $message;
     }
 
-    public function hasError($attribute)
+    /**
+     * @param string $attribute
+     * @return false|mixed
+     */
+    public function hasError(string $attribute): mixed
     {
         return $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError($attribute)
+    /**
+     * @param string $attribute
+     * @return mixed|string
+     */
+    public function getFirstError(string $attribute): mixed
     {
         $errors = $this->errors[$attribute] ?? [];
         return $errors[0] ?? '';

@@ -1,21 +1,23 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\exception;
+
+use Exception;
 
 /**
  * Class ForbiddenException
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc\exception
+ * @package divyashresthaMvc\exception
  */
-class ForbiddenException extends \Exception
+class ForbiddenException extends Exception
 {
+    /**
+     * @var string
+     */
     protected $message = 'You don\'t have permission to access this page';
+    /**
+     * @var int
+     */
     protected $code = 403;
 }

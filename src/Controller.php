@@ -1,10 +1,5 @@
 <?php
 
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
 namespace divyashrestha\Mvc;
 
 use divyashrestha\Mvc\middlewares\BaseMiddleware;
@@ -13,29 +8,54 @@ use divyashrestha\Mvc\middlewares\BaseMiddleware;
  * Class Controller
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\mvc
+ * @package divyashrestha\Mvc
  */
 class Controller
 {
+    /**
+     * @var string
+     */
     public string $layout = 'main';
+    /**
+     * @var string
+     */
     public string $action = '';
+    /**
+     * @var array
+     */
     protected array $middlewares = [];
 
-    public function setLayout($layout): void
+    /**
+     * @param string $layout
+     * @return void
+     */
+    public function setLayout(string $layout): void
     {
         $this->layout = $layout;
     }
 
-    public function render($view, $params = []): string
+    /**
+     * @param string $view
+     * @param array $params
+     * @return string
+     */
+    public function render(string $view, array $params = []): string
     {
         return Application::$app->router->renderView($view, $params);
     }
 
+    /**
+     * @param BaseMiddleware $middleware
+     * @return void
+     */
     public function registerMiddleware(BaseMiddleware $middleware): void
     {
         $this->middlewares[] = $middleware;
     }
 
+    /**
+     * @return array
+     */
     public function getMiddlewares(): array
     {
         return $this->middlewares;

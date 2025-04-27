@@ -1,24 +1,21 @@
 <?php
-
-/**
- * User: Divya Shrestha <work@divyashrestha.com.np>
- * Date: 21/04/2025
- * Time: 21:17
- */
-
 namespace divyashrestha\Mvc\form;
-
-use divyashrestha\Mvc\db\BaseModel;
 
 /**
  * Class BaseForm
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package core\form
+ * @package divyashrestha\Mvc\form
  */
+
 abstract class BaseForm
 {
-    public function __construct($action, $method, $options = [])
+    /**
+     * @param string $action
+     * @param string $method
+     * @param array $options
+     */
+    public function __construct(string $action, string $method, array $options = [])
     {
         $attributes = [];
         foreach ($options as $key => $value) {
@@ -27,13 +24,22 @@ abstract class BaseForm
         echo sprintf('<form action="%s" method="%s" %s>', $action, $method, implode(" ", $attributes));
     }
 
+    /**
+     * @return void
+     */
     public static function end(): void
     {
         echo '</form>';
     }
 
 
-    public function button($type, $label, $options = []): string
+    /**
+     * @param string $type
+     * @param string $label
+     * @param array $options
+     * @return string
+     */
+    public function button(string $type, string $label,array $options = []): string
     {
         $optional_attributes = [];
         foreach ($options as $key => $value) {
