@@ -1,47 +1,85 @@
 <?php
+
 namespace divyashrestha\Mvc\mail;
 
+use divyashrestha\Mvc\Application;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
+/**
+ * Class BaseMail
+ *
+ * @author Divya Shrestha <work@divyashrestha.com.np>
+ * @package divyashrestha\Mvc
+ *
+ */
 class BaseMail
 {
-    public static function sendMail(string $from, array $to, string $subject, string $body, array $cc, array $bcc, array $attachments):bool{
-        $mail= new PHPMailer(true);
+    /**
+     * @param array $tos
+     * @param string $subject
+     * @param string $body
+     * @param array $reply_tos
+     * @param array $ccs
+     * @param array $bccs
+     * @param array $attachments
+     * @return bool|string
+     */
+    public static function sendMail(array $tos, string $subject, string $body, array $reply_tos = [], array $ccs = [], array $bccs = [], array $attachments = []): bool|string
+    {
+        $mail_config = Application::$app->mail_config;
+        $mail = new PHPMailer(true);
+
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        if ($mail_config['mailer'] == 'smtp') {
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = $mail_config['encryption'] || PHPMailer::ENCRYPTION_SMTPS;
+        } else {
+            $mail->Mailer = $mail_config['mailer'];
+        }
+        $mail->Host = $mail_config['host'];
+        $mail->Username = $mail_config['username'];
+        $mail->Password = $mail_config['password'];
+        $mail->Port = $mail_config['port'];
         try {
-            //Server settings
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp.example.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = 'user@example.com';                     //SMTP username
-            $mail->Password   = 'secret';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->setFrom($mail_config['from_address'], Application::$app->app_config['name']);
 
-            //Recipients
-            $mail->setFrom('from@example.com', 'Mailer');
-            $mail->addAddress('joe@example.net', 'Joe User');     //Add a recipient
-            $mail->addAddress('ellen@example.com');               //Name is optional
-            $mail->addReplyTo('info@example.com', 'Information');
-            $mail->addCC('cc@example.com');
-            $mail->addBCC('bcc@example.com');
+            foreach ($tos as $to) {
+                $mail->addAddress($to['email'], $to['name'] || '');
+            }
 
-            //Attachments
-            $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-            $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+            if (empty($reply_tos)) {
+                $mail->addReplyTo($mail_config['from_address'], Application::$app->app_config['name']);
+            } else {
+                foreach ($reply_tos as $reply_to) {
+                    $mail->addReplyTo($reply_to['email'], $reply_to['name'] || '');
+                }
+            }
 
-            //Content
-            $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'Here is the subject';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            foreach ($bccs as $bcc) {
+                $mail->addBCC($bcc['email'], $bcc['name'] || '');
+            }
 
-            echo 'Message has been sent';
+            foreach ($ccs as $cc) {
+                $mail->addCC($cc['email'], $cc['name'] || '');
+            }
+
+            foreach ($attachments as $attachment) {
+                $mail->addAttachment($attachment['url'], $attachment['name'] || '');
+            }
+
+            $mail->isHTML(true);
+            $mail->Subject = $subject;
+            $mail->Body = $body;
+            console_log("sending mail");
             return $mail->send();
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        } catch (Exception $exception) {
+            $message = $exception->getMessage();
+            console_log("Error on sending mail: $message and Mailer Error: {$mail->ErrorInfo}");
+            return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
     }
 }
