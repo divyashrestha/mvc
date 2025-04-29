@@ -58,4 +58,11 @@ class View
     {
         print_r($this->renderViewOnly("$folder/_$view", $params));
     }
+
+    public function load_asset(string $asset): void
+    {
+        ob_start();
+        include_once Application::$ROOT_DIR . '/public/' . $asset;
+        ob_get_clean();
+    }
 }
