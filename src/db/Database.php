@@ -10,7 +10,7 @@ use PDOStatement;
  * Class Database
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\Mvc
+ * @package divyashrestha\Mvc\db
  */
 class Database
 {

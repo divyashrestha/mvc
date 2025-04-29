@@ -6,7 +6,7 @@ namespace divyashrestha\Mvc\db;
  * abstract class BaseMigration
  *
  * @author Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\Mvc
+ * @package divyashrestha\Mvc\db
  *
  */
 abstract class BaseMigration

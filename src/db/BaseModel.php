@@ -10,7 +10,7 @@ use stdClass;
  * Class BaseModel
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\Mvc
+ * @package divyashrestha\Mvc\db
  */
 abstract class BaseModel extends Model
 {

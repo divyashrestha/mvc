@@ -53,17 +53,45 @@ class Request
     }
 
     /**
+     * @return bool
+     */
+    public function isPut(): bool
+    {
+        return $this->getMethod() === 'put';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPatch(): bool
+    {
+        return $this->getMethod() === 'patch';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDelete(): bool
+    {
+        return $this->getMethod() === 'delete';
+    }
+
+    /**
+     * @param bool $method
      * @return array
      */
-    public function getBody(): array
+    public function getBody(bool $method= false): array
     {
         $data = [];
+        if($method){
+            $data['method'] = $this->getMethod();
+        }
         if ($this->isGet()) {
             foreach ($_GET as $key => $value) {
                 $data[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
         }
-        if ($this->isPost()) {
+        if ($this->isPost() || $this->isPut() || $this->isPatch() || $this->isDelete()) {
             foreach ($_POST as $key => $value) {
                 $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
@@ -94,7 +122,7 @@ class Request
      * @param string|null $default
      * @return null|string
      */
-    public function getRouteParam(string$param, null|string $default = null): null|string
+    public function getRouteParam(string $param, null|string $default = null): null|string
     {
         return $this->routeParams[$param] ?? $default;
     }

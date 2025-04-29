@@ -1,17 +1,14 @@
 <?php
 
-
 namespace divyashrestha\Mvc\exception;
-
-use Exception;
 
 /**
  * Class NotFoundException
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashresthaMvc\exception
+ * @package divyashrestha\Mvc\exception
  */
-class NotFoundException extends Exception
+class NotFoundException extends BaseException
 {
     /**
      * @var string

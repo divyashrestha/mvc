@@ -8,7 +8,7 @@ use divyashrestha\Mvc\Application;
  * Class Model
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashrestha\Mvc
+ * @package divyashrestha\Mvc\db
  */
 class Model
 {

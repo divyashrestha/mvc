@@ -2,15 +2,13 @@
 
 namespace divyashrestha\Mvc\exception;
 
-use Exception;
-
 /**
  * Class ForbiddenException
  *
  * @author  Divya Shrestha <work@divyashrestha.com.np>
- * @package divyashresthaMvc\exception
+ * @package divyashrestha\Mvc\exception
  */
-class ForbiddenException extends Exception
+class ForbiddenException extends BaseException
 {
     /**
      * @var string
