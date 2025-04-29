@@ -11,7 +11,7 @@ namespace divyashrestha\Mvc\middlewares;
 abstract class BaseMiddleware
 {
     /**
-     * @return mixed
+     * @return void
      */
-    abstract public function execute(): mixed;
+    abstract public function execute(): void;
 }
